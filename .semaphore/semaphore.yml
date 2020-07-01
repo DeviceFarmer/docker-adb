@@ -11,7 +11,7 @@ blocks:
         - name: docker build
           commands:
             - checkout
-            - 'docker build '
+            - docker build .
 promotions:
   - name: Deploy to DockerHub
     pipeline_file: deploy.yml
