@@ -4,7 +4,7 @@ This repository contains a [Dockerfile](https://www.docker.io/) for the [Android
 
 ## Changes
 
-* _2020-11-05_ Platform tools updated to `30.0.5`
+* _2020-11-05_ Platform tools updated to `30.0.5`, glibc to `2.32-r0`
 * _2020-10-22_ Alpine updated to `3.12.1`
 * _2020-10-06_ Platform tools updated to `30.0.4`
 * _2020-07-01_ Alpine updated to `3.12.0`, platorm tools updated to `29.0.6`
