@@ -4,7 +4,9 @@ This repository contains a [Dockerfile](https://www.docker.io/) for the [Android
 
 ## Changes
 
-* _2020-10-06_ Platform tools updated to 30.0.4
+* _2020-11-05_ Platform tools updated to `30.0.5`, glibc to `2.32-r0`
+* _2020-10-22_ Alpine updated to `3.12.1`
+* _2020-10-06_ Platform tools updated to `30.0.4`
 * _2020-07-01_ Alpine updated to `3.12.0`, platorm tools updated to `29.0.6`
 * _2016-07-02_ The image now uses [Alpine](https://hub.docker.com/_/alpine/) as the base image, making it way smaller. Furthermore, downloading the platform tools is now done in a more cunning way, further removing almost all dependencies and reducing image size. Only platform-tools are now included.
 * _2016-07-02_ Due to internal ADB changes our previous start command no longer works in the latest version. The command has been updated, but if you were specifying it yourself, make sure you're using `adb -a -P 5037 server nodaemon`. Do NOT use the `fork-server` argument anymore.
