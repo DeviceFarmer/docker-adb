@@ -4,6 +4,16 @@ This repository contains a [Dockerfile](https://www.docker.io/) for the [Android
 
 ## Changes
 
+* _2021-10-02_ Glibc updated to `2.34-r0`
+* _2021-10-02_ Alpine updated to `3.14.2`
+* _2021-06-16_ Alpine updated to `3.14.0`
+* _2021-04-15_ Alpine updated to `3.13.5`
+* _2021-03-26_ Alpine updated to `3.13.3`
+* _2021-02-18_ Alpine updated to `3.13.2`
+* _2021-01-29_ Alpine updated to `3.13.1`
+* _2021-01-15_ Alpine updated to `3.13.0`
+* _2020-12-17_ Alpine updated to `3.12.3`
+* _2020-12-11_ Alpine updated to `3.12.2`
 * _2020-11-05_ Platform tools updated to `30.0.5`, glibc to `2.32-r0`
 * _2020-10-22_ Alpine updated to `3.12.1`
 * _2020-10-06_ Platform tools updated to `30.0.4`
