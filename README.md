@@ -4,6 +4,18 @@ This repository contains a [Dockerfile](https://www.docker.io/) for the [Android
 
 ## Changes
 
+Android platform tools are automatically updated to the latest stable version on each docker image build.
+
+* _2022-10-09_ Platform tools updated to `33.0.3`
+* _2022-08-10_ Alpine updated to `3.16.2`
+* _2022-08-10_ Alpine updated to `3.16.1`
+* _2022-05-24_ Alpine updated to `3.16.0`
+* _2022-04-06_ Alpine updated to `3.15.4`
+* _2022-04-06_ Alpine updated to `3.15.3`
+* _2022-03-23_ Alpine updated to `3.15.2`
+* _2022-03-17_ Alpine updated to `3.15.1`
+* _2021-11-24_ Alpine updated to `3.15.0`
+* _2021-11-13_ Alpine updated to `3.14.3`
 * _2021-10-02_ Glibc updated to `2.34-r0`
 * _2021-10-02_ Alpine updated to `3.14.2`
 * _2021-06-16_ Alpine updated to `3.14.0`
