@@ -1,4 +1,4 @@
-FROM alpine:3.18.5
+FROM alpine:3.18.6
 
 # Set up insecure default key
 RUN mkdir -m 0750 /root/.android
@@ -7,7 +7,7 @@ ADD files/insecure_shared_adbkey.pub /root/.android/adbkey.pub
 ADD files/update-platform-tools.sh /usr/local/bin/update-platform-tools.sh
 
 RUN set -xeo pipefail && \
-    apk update && \
+    apk update && apk del libc6-compat && \
     apk add wget ca-certificates tini && \
     wget -O "/etc/apk/keys/sgerrand.rsa.pub" \
       "https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub" && \
