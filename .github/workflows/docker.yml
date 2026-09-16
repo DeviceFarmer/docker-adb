@@ -1,0 +1,40 @@
+name: Docker
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: docker-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  docker:
+    name: Build and publish
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      # Required to mint the OIDC token exchanged for a short-lived Docker Hub token.
+      id-token: write
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Log in to Docker Hub
+        if: github.event_name == 'push'
+        uses: docker/login-action@v4
+        with:
+          username: devicefarmer
+        env:
+          DOCKERHUB_OIDC_CONNECTIONID: ${{ vars.DOCKERHUB_OIDC_CONNECTIONID }}
+
+      - name: Build
+        run: docker build . -t devicefarmer/adb:latest
+
+      - name: Push
+        if: github.event_name == 'push'
+        run: docker push devicefarmer/adb:latest
