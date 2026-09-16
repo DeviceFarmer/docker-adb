@@ -6,6 +6,7 @@ This repository contains a [Dockerfile](https://www.docker.io/) for the [Android
 
 Android platform tools are automatically updated to the latest stable version on each docker image build.
 
+* _2026-09-16_ Platform tools updated to `37.0.1`
 * _2026-05-06_ Platform tools updated to `37.0.0`
 * _2025-12-24_ Platform tools updated to `36.0.2`
 * _2025-03-28_ Platform tools updated to `36.0.0`
