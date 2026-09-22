@@ -6,6 +6,7 @@ This repository contains a [Dockerfile](https://www.docker.io/) for the [Android
 
 Android platform tools are automatically updated to the latest stable version on each docker image build.
 
+* _2026-09-22_ Switched base image from Alpine + glibc compatibility shim to `debian:trixie-slim`, since Android platform tools are glibc binaries and don't actually need Alpine
 * _2026-09-16_ Platform tools updated to `37.0.1`
 * _2026-05-06_ Platform tools updated to `37.0.0`
 * _2025-12-24_ Platform tools updated to `36.0.2`
@@ -221,7 +222,7 @@ If you change the units, don't forget to run `systemctl daemon-reload` or they w
 ## Thanks
 
 * [Jérôme Petazzoni's post on the docker-user forum explaining USB device access](https://groups.google.com/d/msg/docker-user/UsekCwA1CSI/RtgmyJOsRtIJ)
-* @sgerrand for [sgerrand/alpine-pkg-glibc](https://github.com/sgerrand/alpine-pkg-glibc)
+* @sgerrand for [sgerrand/alpine-pkg-glibc](https://github.com/sgerrand/alpine-pkg-glibc), used for many years before the base image was switched to Debian
 * @frol for [frol/docker-alpine-glibc](https://github.com/frol/docker-alpine-glibc)
 
 ## License

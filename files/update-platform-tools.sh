@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-set -euo pipefail
+set -eu
 
 install_platform_tools() {
   local URL="https://dl.google.com/android/repository/platform-tools-latest-linux.zip"
