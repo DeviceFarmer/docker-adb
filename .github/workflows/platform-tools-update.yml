@@ -1,0 +1,75 @@
+name: Platform tools update
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    name: Check for new platform tools release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Bump platform tools version
+        id: bump
+        shell: python
+        run: |
+          import datetime, os, re, urllib.request
+          import xml.etree.ElementTree as ET
+
+          manifest = ET.parse(urllib.request.urlopen('https://dl.google.com/android/repository/repository2-3.xml')).getroot()
+          channels = {c.get('id'): c.text for c in manifest.findall('channel')}
+          package = next(
+              p for p in manifest.findall('remotePackage')
+              if p.get('path') == 'platform-tools' and channels[p.find('channelRef').get('ref')] == 'stable'
+          )
+          revision = package.find('revision')
+          version = '.'.join(revision.findtext(part, '0') for part in ('major', 'minor', 'micro'))
+          archive = next(a for a in package.iter('archive') if a.findtext('host-os') == 'linux')
+          sha1 = archive.findtext('complete/checksum')
+          if archive.findtext('complete/url') != f'platform-tools_r{version}-linux.zip':
+              raise SystemExit(f'Unexpected archive name: {archive.findtext("complete/url")}')
+
+          with open('Dockerfile') as f:
+              dockerfile = f.read()
+          current = re.search(r'^ARG PLATFORM_TOOLS_VERSION=(.+)$', dockerfile, re.M).group(1)
+          print(f'Current: {current}, latest stable: {version}')
+          if tuple(map(int, version.split('.'))) <= tuple(map(int, current.split('.'))):
+              raise SystemExit(0)
+
+          dockerfile = re.sub(r'^ARG PLATFORM_TOOLS_VERSION=.+$', f'ARG PLATFORM_TOOLS_VERSION={version}', dockerfile, flags=re.M)
+          dockerfile = re.sub(r'^ARG PLATFORM_TOOLS_SHA1=.+$', f'ARG PLATFORM_TOOLS_SHA1={sha1}', dockerfile, flags=re.M)
+          with open('Dockerfile', 'w') as f:
+              f.write(dockerfile)
+
+          with open('README.md') as f:
+              readme = f.read()
+          today = datetime.date.today().isoformat()
+          readme = re.sub(r'^\* _', f'* _{today}_ Platform tools updated to `{version}`\n* _', readme, count=1, flags=re.M)
+          with open('README.md', 'w') as f:
+              f.write(readme)
+
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+              f.write(f'version={version}\n')
+
+      - name: Open pull request
+        if: steps.bump.outputs.version
+        uses: peter-evans/create-pull-request@v8
+        with:
+          # PRs opened with the default GITHUB_TOKEN don't trigger the Docker workflow,
+          # so a fine-grained PAT (contents + pull requests: write) is preferred when configured.
+          token: ${{ secrets.PLATFORM_TOOLS_PR_TOKEN || github.token }}
+          branch: automation/platform-tools-update
+          commit-message: Update platform tools to ${{ steps.bump.outputs.version }}
+          title: Update platform tools to ${{ steps.bump.outputs.version }}
+          body: |
+            Bumps Android SDK Platform-Tools to `${{ steps.bump.outputs.version }}`.
+
+            [Release notes](https://developer.android.com/tools/releases/platform-tools)
+          delete-branch: true
