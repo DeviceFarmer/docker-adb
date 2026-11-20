@@ -6,6 +6,7 @@ This repository contains a [Dockerfile](https://www.docker.io/) for the [Android
 
 The platform tools version is pinned in the `Dockerfile`. A scheduled workflow checks daily for a new stable release and opens a pull request to bump it.
 
+* _2026-11-20_ Platform tools updated to `37.0.3`
 * _2026-09-22_ Switched base image from Alpine + glibc compatibility shim to `debian:trixie-slim`, since Android platform tools are glibc binaries and don't actually need Alpine
 * _2026-09-16_ Platform tools updated to `37.0.1`
 * _2026-05-06_ Platform tools updated to `37.0.0`

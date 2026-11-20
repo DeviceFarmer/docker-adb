@@ -1,8 +1,8 @@
 FROM debian:trixie-slim
 
 # Bumped automatically by .github/workflows/platform-tools-update.yml
-ARG PLATFORM_TOOLS_VERSION=37.0.1
-ARG PLATFORM_TOOLS_SHA1=477254aa5f903c15cf51001717bdf347fb6b53e0
+ARG PLATFORM_TOOLS_VERSION=37.0.3
+ARG PLATFORM_TOOLS_SHA1=e1579b288a7ae4e9bc28dedec6a154d78b3c04ed
 
 # Set up insecure default key
 RUN mkdir -m 0750 /root/.android
